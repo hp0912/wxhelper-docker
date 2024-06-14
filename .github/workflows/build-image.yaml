@@ -21,6 +21,7 @@ jobs:
       - name: Login to Repository
         uses: docker/login-action@v2
         with:
+          registry: registry.cn-shenzhen.aliyuncs.com
           username: ${{ secrets.DOCKER_USNER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
