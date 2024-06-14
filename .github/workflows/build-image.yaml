@@ -2,13 +2,13 @@ name: Build Image
 
 on:
   push:
-   branches:
-     - main
-   paths:
-     - ".github/workflows/build-image.yaml"
-     - "Dockerfile"
-     - "install-wechat.sh"
-     - "cmd.sh"
+    branches:
+      - main
+    paths:
+      - ".github/workflows/build-image.yaml"
+      - "Dockerfile"
+      - "install-wechat.sh"
+      - "cmd.sh"
 
 jobs:
   build-image:
@@ -23,12 +23,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Build 3.9.8.25 version
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: lxh01/wxhelper-docker:3.9.8.25-v2
+          tags: registry.cn-shenzhen.aliyuncs.com/houhou/wxhelper-docker:3.9.8.25-v2
           build-args: |
             WECHAT_URL=https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.8.25/WeChatSetup-3.9.8.25.exe
             WXHELPER_URL=https://github.com/ttttupup/wxhelper/releases/download/3.9.8.25-v2/wxhelper.dll
@@ -37,13 +37,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: lxh01/wxhelper-docker:3.9.5.81-v11
+          tags: registry.cn-shenzhen.aliyuncs.com/houhou/wxhelper-docker:3.9.5.81-v11
 
       - name: Build 3.9.2.23 version
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: lxh01/wxhelper-docker:3.9.2.23-v9
+          tags: registry.cn-shenzhen.aliyuncs.com/houhou/wxhelper-docker:3.9.2.23-v9
           build-args: |
             WECHAT_URL=https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.2.23/WeChatSetup-3.9.2.23.exe
             WXHELPER_URL=https://github.com/ttttupup/wxhelper/releases/download/3.9.2.23-v9/wxhelper.dll

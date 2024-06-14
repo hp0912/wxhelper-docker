@@ -28,6 +28,17 @@ COPY install-wechat.sh install-wechat.sh
 RUN sudo chmod a+x install-wechat.sh && ./install-wechat.sh
 RUN rm -rf WeChatSetup.exe && rm -rf install-wechat.sh
 
+# 安装改版本依赖
+ADD https://www.python.org/ftp/python/3.9.10/python-3.9.10-amd64.exe python-3.9.10-amd64.exe
+RUN bash -c 'nohup /entrypoint.sh 2>&1 &' && \
+  sleep 10 && \
+  sudo chown app:app python-3.9.10-amd64.exe && \
+  wine "c:\python-3.9.10-amd64.exe" /quite /passive TargetDir=C:\PYTHON InstallAllUsers=1 PrependPath=1 && \
+  rm -rf python-3.9.10-amd64.exe && \
+  wine pip install pymem
+COPY version.py version.py
+RUN sudo chmod +x version.py
+
 EXPOSE 5900 19088
 
 COPY cmd.sh /cmd.sh
