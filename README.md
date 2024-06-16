@@ -1,4 +1,4 @@
-## 自动注入`wxhelper`的微信PC版镜像
+## 自动注入`wxhelper`的微信 PC 版镜像
 
 ## 免责声明
 
@@ -21,29 +21,33 @@
 ## 使用方式
 
 ```yaml
-version: '3'
+version: "3"
 
 services:
-  wechat:
-    image: lxh01/wxhelper-docker:{tag} # 自行选择喜欢的tag
-    container_name: wechat
-    restart: unless-stopped
-    # 关闭seccomp，在非debian系宿主机运行时需要取消掉下面这两行注释
-    #security_opt:
-    #  - seccomp:unconfined
-    environment:
-      - WINEDEBUG=fixme-all
-    volumes:
-      - ./data/wechat:/home/app/.wine/drive_c/users/app/Documents/WeChat\ Files # 映射微信缓存目录
-    ports:
-      - "5900:5900" # VNC接口，使用VNC Viewer连接之后可以扫码登录微信
-      - "8080:8080" # noVNC端口，仅tag含有novnc才有这个
-      - "19088:19088" # wxhelper的接口端口
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:19088/api/checkLogin"]
-      interval: 60s
-      timeout: 10s
-      retries: 5
+    wechat:
+        image: lxh01/wxhelper-docker:{tag} # 自行选择喜欢的tag
+        container_name: wechat
+        restart: unless-stopped
+        # 关闭seccomp，在非debian系宿主机运行时需要取消掉下面这两行注释
+        #security_opt:
+        #  - seccomp:unconfined
+        environment:
+            - WINEDEBUG=fixme-all
+        volumes:
+            - ./data/wechat:/home/app/.wine/drive_c/users/app/Documents/WeChat\ Files # 映射微信缓存目录
+        ports:
+            - "5900:5900" # VNC接口，使用VNC Viewer连接之后可以扫码登录微信
+            - "8080:8080" # noVNC端口，仅tag含有novnc才有这个
+            - "19088:19088" # wxhelper的接口端口
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:19088/api/checkLogin"]
+            interval: 60s
+            timeout: 10s
+            retries: 5
+```
+
+```
+wine 'c:\PYTHON\python.exe' 'c:\version.py' '3.9.5.81'
 ```
 
 ## 鸣谢
